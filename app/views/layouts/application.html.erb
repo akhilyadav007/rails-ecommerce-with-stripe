@@ -25,6 +25,16 @@
       <%= link_to "Register", new_user_registration_path %>
     <% end %>
     <hr>
+    <h1>Shopping Cart</h1>
+    <% @cart.each do |product| %>
+     <%= product.name%>
+     <br>
+    <% end %>
+    <% if @cart.present? %>
+    <%= @cart.collect { |item| item.to_builder.attributes! } %>
+    <td><%= button_to "Buy now!", checkout_create_path, remote: true, data: { disable_with: "validating..."} %></td>
+    <% end %>
+    <hr>
     <%= yield %>
   </body>
 </html>

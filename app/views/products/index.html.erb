@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Pay</th>
+      <th>Shopping Cart</th>
       <th>Sales Count</th>
       <th>Product id</th>
       <th>Price id</th>
@@ -20,7 +21,14 @@
       <tr>
         <td><%= product %></td>
         <td><%= number_to_currency(product.price) %></td>
-        <td><%= button_to "Buy now!", checkout_create_path, params: {id: product.id}, remote: true, data: { disable_with: "validating..."} %></td>
+        <td><%= button_to "Buy now!", checkout_create_path, remote: true, data: { disable_with: "validating..."} %></td>
+        <td>
+          <% if @cart.include?(product) %>
+            <%= button_to "Remove from cart", remove_from_cart_path(product), method: :delete %>
+          <% else %>
+            <%= button_to "Add to cart", add_to_cart_path(product) %>
+          <% end %>
+        </td>
         <td><%= product.sales_count%></td>
         <td><%= product.stripe_product_id %></td>
         <td><%= product.stripe_price_id %></td>
