@@ -1,10 +1,12 @@
 class Product < ApplicationRecord
 
-  validates :name, :price, presence:true
+  validates :name, presence:true
 
   def to_s
     name
   end
+
+  monetize :price, as: :price_cents
 
   def to_builder
     Jbuilder.new do |product|
